@@ -1,0 +1,44 @@
+authAnonymousRole: Admin
+apiKeySecret:
+  name: coroot-poc-api-key
+  key: api-key
+projects:
+  - name: default
+    apiKeys:
+      - description: kind-poc
+        keySecret:
+          name: coroot-poc-api-key
+          key: api-key
+communityEdition:
+  image:
+    name: ghcr.io/coroot/coroot:1.27.1
+nodeAgent:
+  image:
+    name: ghcr.io/coroot/coroot-node-agent:1.36.2
+clusterAgent:
+  image:
+    name: ghcr.io/coroot/coroot-cluster-agent:1.11.5
+metricsRefreshInterval: 15s
+service:
+  type: NodePort
+  port: 8080
+  nodePort: 30080
+storage:
+  size: 2Gi
+env:
+  - name: DISABLE_USAGE_STATISTICS
+    value: "true"
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    memory: 2Gi
+prometheus:
+  storage:
+    size: 3Gi
+clickhouse:
+  shards: 1
+  replicas: 1
+  storage:
+    size: 5Gi
